@@ -97,7 +97,7 @@ def encode_word(word: str):
         encoded_letters.append(encoded_num)
     a = convert_base(encoded_letters[0], encoded_letters[1])
     b = convert_base_decimal(encoded_letters[2]/10**len(str(encoded_letters[2])),encoded_letters[3]).replace(')', '').replace('(', '').replace('0.', '')
-    # c = to_ternary(encoded_letters[1])
-    # d = to_ternary(encoded_letters[3])
-    # new_arr = [a, c, b, d]
-    return [a,b]  # Тут возвращать закодированное слово
+    c = to_ternary(encoded_letters[1])
+    d = to_ternary(encoded_letters[3])
+    new_arr = [a, c, b, d]
+    return make_answer(new_arr)  # Тут возвращать закодированное слово
