@@ -42,11 +42,62 @@ def convert_base_decimal(num, base):
         num = Decimal(str(num))- Decimal(str(math.floor(num)))
     return res
 
+def to_ternary(num: int):
+    cur_num = num
+    arr = []
+    while True:
+        res = cur_num // 3
+        temp = cur_num % 3
+        cur_num = res
+
+        if temp == 2:
+            arr.append('#')
+            res += 1
+            cur_num = res
+        if temp != 2:
+            arr.append(str(temp))
+        if res < 3:
+            if res == 2:
+                arr.append('#')
+                arr.append('1')
+            if res == 1:
+                arr.append('1')
+            break
+    return "".join(arr[::-1])
+
+def make_answer(arr):
+    answer = ""
+    temp_length = 20
+    i = 0
+    is_reverse = False
+    while True:
+        if i == 4:
+            i -= 1
+            is_reverse = True
+        elif i == 0:
+            is_reverse = False
+        if temp_length > 0:
+            new_range = range(len(arr[i]) -1, -1, -1) if is_reverse else range(len(arr[i]))
+            for j in new_range:
+                if temp_length > 0:
+                    item = arr[i][j]
+                    answer += item
+                    temp_length -= 1
+                else:
+                    break
+            i += -1 if is_reverse else 1
+        else:
+            break
+    return answer
+
 def encode_word(word: str):
     encoded_letters = []
     for i in word:
         encoded_num = letter_dir[i.upper()]
         encoded_letters.append(encoded_num)
     a = convert_base(encoded_letters[0], encoded_letters[1])
-    b = convert_base_decimal(encoded_letters[2]/10**len(str(encoded_letters[2])),encoded_letters[3])
-    return b  # Тут возвращать закодированное слово
+    b = convert_base_decimal(encoded_letters[2]/10**len(str(encoded_letters[2])),encoded_letters[3]).replace(')', '').replace('(', '').replace('0.', '')
+    # c = to_ternary(encoded_letters[1])
+    # d = to_ternary(encoded_letters[3])
+    # new_arr = [a, c, b, d]
+    return [a,b]  # Тут возвращать закодированное слово
