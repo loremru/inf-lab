@@ -91,6 +91,7 @@ def make_answer(arr):
     return answer
 
 def encode_word(word: str):
+    print(word)
     encoded_letters = []
     for i in word:
         encoded_num = letter_dir[i.upper()]
